@@ -1,0 +1,196 @@
+:root {
+    --primary: rgb(109, 196, 242);
+    --secondary: rgb(240, 248, 255)
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* PAGE BANNER */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--primary);
+}
+
+#Logo {
+    font-family: 'Lucida Handwriting', Helvetica, sans-serif;
+    margin: 0;
+    font-size: 40px;
+    color: black;
+}
+
+#Logo a{
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* GREETING FOR USER */
+.home-greeting {
+    align-self: center;
+    margin: 0 150px;
+}
+
+.home-greeting h2 {
+    text-align: center;
+    font-size: 32px;
+}
+
+.home-greeting p, .home-greeting a {
+    color: black;
+    font-size: 20px;
+}
+
+.home-greeting a:hover {
+    color: var(--primary)
+}
+
+/* ////////// */
+/* 404 page */
+/* ////////// */
+
+.not-found {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.not-found p, .not-found a {
+  color: black;
+}
+
+#code-404 {
+  font-size: 60px;
+  color: var(--primary)
+}
+
+
+/*///////////////////*/
+/* GAME SCREEN */
+/*///////////////////*/
+
+
+.game-question {
+    margin: 0 auto;
+    width: 400px;
+}
+
+.game-question h2 {
+    text-align: center;
+    color: var(--primary);
+}
+
+.submission {
+    display: flex;
+    justify-content: center;
+    padding: 2px;
+    
+}
+
+.submission input, .submission button {
+    border: 2px var(--primary) solid;
+}
+
+.submission button {
+    margin-left: -2px;
+    background: var(--primary);
+    color:white
+}
+
+.submission button:active {
+    background: rgb(84, 139, 168)
+}
+
+.submission input {
+    outline: none;
+    background-color: rgba(255, 235, 205, 0);
+}
+
+/* message for user: text color controlled dynamically via jsx in Question component */
+/* also centers the timer, the score, and the next question test*/
+#error-invalid-submission, #timer, .score {
+    text-align: center;
+}
+
+#next-question:hover {
+    cursor: pointer;
+    color: var(--primary)
+}
+
+#next-question {
+    align-self: center;
+    text-align: center;
+    /* width:250px; */
+    /* margin:0 400px; */
+}
+
+/* ///////////// */
+/* SIGNUP/LOGIN */
+/* ///////////// */
+
+.auth{
+  margin-top: 4rem;
+  border: 3px green solid;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin: 4rem 200px;
+  padding: 1rem;
+  gap: 10px;
+}
+
+/* centering the button inside the form */
+.auth div {
+  align-self: center;
+}
+
+ .auth h2, .auth a, .auth p {
+  text-align: center;
+}
+
+/* ///////////// */
+/* LEADERBOARDS */
+/* ///////////// */
+
+#leaderboard {
+  align-self: center;
+}
+#leaderboard h1{
+  text-align: center;
+}
+
+#leaderboard table {
+    text-align: center;
+    margin: 0 auto;
+    border: black 1px solid;
+    border-collapse: collapse;
+    
+}
+
+th, td {
+  padding: 0rem;
+  border:black 1px solid;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  width: 11rem;
+  text-align: center;
+  vertical-align:middle;
+  
+}
+
+th {
+  background-color:var(--primary);
+  padding: 0;
+}
+
+td{
+  height:25px;
+  font-size: .75rem;
+}
