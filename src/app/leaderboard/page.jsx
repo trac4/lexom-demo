@@ -1,7 +1,7 @@
 import React from 'react'
 import Score from '../Components/Score'
 
-export default function Leaderboard() {
+export default function LeaderboardPage() {
   const dummyData = [
     {name: 'test',
      score: 100000

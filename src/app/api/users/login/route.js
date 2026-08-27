@@ -24,29 +24,34 @@ export async function POST(req, res) {
             return NextResponse.json({message: "Incorrect email or username", success:false}, {status:404})
         }
 
-        
+    
 
         //verify password
         const isPassword = await bcrypt.compare(password, user.password)
         if (!isPassword){
             return NextResponse.json({error: 'Incorrect password'}, {status: 403})
         }
-        return NextResponse.json({message: "correct email or username", success:true}, {status:200})
+
+
+        console.log(user)
+        console.log(process.env.JWT_SECRET)
+
+        // return NextResponse.json({message: "correct email or username", success:true}, {status:200})
         
-        // //create token data
-        // const tokenData = {
-        //     id:user._id,
-        //     username: user.username,
-        //     email: user.email,
-        // }
+        //create token data
+        const tokenData = {
+            id:user._id,
+            username: user.username,
+            email: user.email,
+        }
 
-        // const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '1d'})
-        // const response = NextResponse.json({message: 'login successful', success: true}, {status: 200})
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '1d'})
+        const response = NextResponse.json({message: 'login successful', success: true}, {status: 200})
 
-        // //response being a NextResponse type means it has access to the cookies property
-        // response.cookies.set('token', token, {httpOnly: true})
+        //response being a NextResponse type means it has access to the cookies property
+        response.cookies.set('token', token, {httpOnly: true})
 
-        // return response
+        return response
         
 
     } catch (error) {

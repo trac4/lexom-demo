@@ -122,7 +122,7 @@ useEffect(() => {
 
     
     <form className='game-question' action="" onSubmit={(e) => handleSubmit(e,entered)}>
-        <label htmlFor="user-input"><h2>{prompt.prompt}</h2></label>
+        <label htmlFor="user-input"><h2>{prompt.prompt || 'Fetching question...'}</h2></label>
         <div className="submission">
             <input
         type="text"
@@ -137,7 +137,7 @@ useEffect(() => {
       />
             <button disabled = {time <= 0 || answer}>➡</button>
         </div> 
-        <p id='error-invalid-submission' style={{ color: (rate.includes(messageForUser))? 'green': 'crimson' }}>{messageForUser}</p>
+        <p id='message-for-user' style={{ color: (rate.includes(messageForUser))? 'green': 'crimson' }}>{messageForUser}</p>
     </form>
     
     </>

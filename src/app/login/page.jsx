@@ -46,7 +46,7 @@ export default function SignUpPage () {
       let code = Number(message.match(/\d/g).join('')) //parses number from message
       console.log(code)
       if (code === 404) setShowError('Incorrect username or email') 
-      else if (code === 403) setShowError('Incorrect username or email') 
+      else if (code === 403) setShowError('Incorrect password') 
     }
     finally {
       setLoading(false)
