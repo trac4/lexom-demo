@@ -16,6 +16,7 @@ export default function RootLayout({children}) {
         <nav>
           <Link href="/game">Play Game</Link>
           <Link href="/leaderboard">Leaderboard</Link>
+          <Link href="/profile">Profile</Link>
         </nav>
       </header>
     

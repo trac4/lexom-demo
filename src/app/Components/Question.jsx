@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {syllable} from 'syllable' //filler for when API does not return a word's syllable count
 import { scorer, rateScore, rate } from '../utils/scorer'; //scoring algorithm
+import { profanity } from '@hackertron/less-strict-profanity';
+import { determineLongestWord } from '../utils/determineLongestWord';
 
 
-export default function Question({time,setScore,setAnswer, answer, checkingWord, setCheckingWord, fetchedPrompt, setFetchedPrompt, prompt}) {
+export default function Question({time,setScore,setAnswer, answer, checkingWord, setCheckingWord, fetchedPrompt, setFetchedPrompt, prompt, setLongestWord}) {
 
 const [messageForUser, setMessageForUser] = useState("");
 const [entered, setEntered] = useState('')
@@ -66,7 +68,7 @@ useEffect(() => {
   //what to do with a submit
   async function handleSubmit(e, word) {
     e.preventDefault();
-    setMessageForUser('') //clears message caused by any posssible invalid actions
+    setMessageForUser('Checking word...') //clears message caused by any posssible invalid actions
     setCheckingWord(true);
     const options = {
       method: "GET",
@@ -84,20 +86,50 @@ useEffect(() => {
     
     else {
       try {
+        //intercept a curse word early so that an unnecessary api call is not made
+        if (profanity.exists(word)) throw Error ('That word is not allowed.')
+
         const response = await axios.request(options);
         let freq = response.data.frequency || 3; //3 is the default value in case API does not list a frequency
-        let syl = (response.data.syllables !== undefined)? response.data.syllables.count : syllable(word)
+        let syl = syllable(word)
         console.log(freq)
         console.log(syl)
         // console.log(response)
-        // console.log(response.data);
+        console.log(response.data);
         // console.log(response.data.results.map(r => r.definition));
-        // console.log(response.data.results.map(r => r.partOfSpeech));
+        // console.log(response.data.results?.map(r => r.partOfSpeech || null));
+        const posFromApi = [response.data.results?.map(r => r.partOfSpeech || null)].flat().map(pos => String(pos))
+        console.log(posFromApi)
 
         //eventual space for checking if the word submitted was valid...
-        if (word.length < prompt.minLength) throw Error('That word is too short, please try again')
+        if (word.length < prompt.minLength) throw Error('That word is too short')
+        
+        if (prompt.beginningWith.length) {
+          let validBeginner = false
+          for (let beginningCharacter of prompt.beginningWith) {
+            if (word.toLowerCase().startsWith(beginningCharacter)) {
+              validBeginner = true;
+              break;
+            }
+          }
+          if (!validBeginner) throw Error ('The word does not begin with the correct letter(s)')
+        }
 
+        if (prompt.endingWith.length) {
+          let validEnder = false
+          for (let endingCharacter of prompt.endingWith) {
+            if (word.toLowerCase().endsWith(endingCharacter)) {
+              validEnder = true;
+              break;
+            }
+          }
+          if (!validEnder) throw Error ('The word does not end with the correct letter(s)')
+        }
 
+        if(syl < prompt.minSyllables) throw Error('The word you submitted has too few syllables')
+          console.log(syl , prompt.minSyllables)
+        if(prompt.acceptedWords.length && prompt.acceptedWords.indexOf(word) === -1) throw Error ('Invalid word submitted')
+        
 
         //only once a word is valid can a score be given
 
@@ -105,8 +137,9 @@ useEffect(() => {
         setAnswer(word);
         setScore(prev=> prev + score);
         setMessageForUser(rateScore(score))
+        setLongestWord(prev => determineLongestWord(prev,word))
       } catch (error) {
-        if (error.message ==='Request failed with status code 404') error.message ='Invalid word submitted, please try again'
+        if (error.message ==='Request failed with status code 404') error.message ='Invalid word submitted'
         setMessageForUser(error.message);
         
       }
@@ -121,10 +154,10 @@ useEffect(() => {
     <>
 
     
-    <form className='game-question' action="" onSubmit={(e) => handleSubmit(e,entered)}>
+    <form className='game-question' action="" onSubmit={(e) => handleSubmit(e,entered.toLowerCase())}>
         <label htmlFor="user-input"><h2>{prompt.prompt || 'Fetching question...'}</h2></label>
         <div className="submission">
-            <input
+        <input
         type="text"
         name="entry"
         id="user-input"
@@ -133,9 +166,9 @@ useEffect(() => {
         onDrop={(e) => illegalMoveDetected(e)}
         onKeyDown={(e) => checkInavlid(e)}
         onChange={e => setEntered(e.target.value)}
-        disabled = {time <= 0 || answer || checkingWord}
+        disabled = {time <= 0 || answer || checkingWord || prompt.prompt === undefined}
       />
-            <button disabled = {time <= 0 || answer}>➡</button>
+            <button disabled = {time <= 0 || answer || checkingWord || prompt.prompt === undefined}>➡</button>
         </div> 
         <p id='message-for-user' style={{ color: (rate.includes(messageForUser))? 'green': 'crimson' }}>{messageForUser}</p>
     </form>

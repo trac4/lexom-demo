@@ -24,14 +24,15 @@ export default function ProfilePage() {
     }
 
     console.log(userProfile)
+    console.log(userProfile.created)
     const testDate = new Date().toISOString()
     return (
     <div>
         <h2>{userProfile.username}</h2>
         <section>
             <div>
-                <p><b>Joined: </b>{new Date(userProfile.created).toDateString()}</p>
-                <p><b>Longest Word </b> extraterrestrial</p>
+                <p><b>Joined: </b>{new Date(userProfile.created).toLocaleDateString()}</p>
+                <p><b>Longest Word: </b> {userProfile.longestWord !== ''? userProfile.longestWord :'N/A'}</p>
             </div>
 
             <button onClick={logout}>Logout</button>

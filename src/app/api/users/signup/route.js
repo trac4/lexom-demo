@@ -17,7 +17,8 @@ export async function POST(req, res) {
         const newUser = await User.create({
             username,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            created: new Date().toISOString() //will record the user's login to UTC time, .toLocaleDateString() is required to show this in user's time zone
         })
 
         console.log(newUser)

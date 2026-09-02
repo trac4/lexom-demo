@@ -178,6 +178,12 @@ a {
   text-align: center;
 }
 
+.improper-auth {
+    color:crimson;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 /* ///////////// */
 /* LEADERBOARDS */
 /* ///////////// */
@@ -216,4 +222,9 @@ th {
 td{
   height:25px;
   font-size: .75rem;
+}
+
+.current-user td {
+    color: var(--primary);
+    font-weight: bold;
 }

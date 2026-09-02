@@ -75,7 +75,7 @@ export default function SignUpPage () {
         value={user.password}
         onChange={handleSignIn}
       ></input>
-      {showError && <p>{showError}</p>}
+      {showError && <p className="improper-auth">{showError}</p>}
       <div>
         <button onClick={onSignUp} disabled={!canSignIn || loading} className="">
           Log In

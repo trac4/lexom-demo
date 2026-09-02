@@ -32,9 +32,12 @@ export async function POST(req, res) {
             return NextResponse.json({error: 'Incorrect password'}, {status: 403})
         }
 
+        //will record the user's login to UTC time, .toLocaleDateString() is required to show this in user's time zone
+        user.lastLogIn = new Date().toISOString()
+        await user.save() //saves doc without using findOneAndUpdate
 
         console.log(user)
-        console.log(process.env.JWT_SECRET)
+        // console.log(process.env.JWT_SECRET)
 
         // return NextResponse.json({message: "correct email or username", success:true}, {status:200})
         
