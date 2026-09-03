@@ -1,6 +1,7 @@
 'use client';
 import React, {useEffect,useState} from 'react'
 import axios from 'axios';
+import SpinnerLoader from '../Components/SpinnerLoader';
 
 export default function page() {
   const [prompt, setPrompt] = useState({}) //errors will arise if an empty object is uninitialized
@@ -31,6 +32,8 @@ export default function page() {
       <button onClick={() => {
     setQuestionNum(prev => prev + 1)
   }}>next question</button>
+
+    <SpinnerLoader></SpinnerLoader>
     </div>
     
   )

@@ -5,7 +5,7 @@ export async function proxy(request) {
   const path = request.nextUrl.pathname //slightly different from the tutorial, pathname can be found like this 
 //   console.log(request.nextUrl)
 
-  const isPublicPath = (path === '/login' || path === '/signup')
+  const isPublicPath = (path === '/login' || path === '/signup' || path === '/')
 
   //also different from tutorial, where grabbing token value from request headers is async (not the case in tutorial). entire function becomes asynchronous as a result
   const token = await request.cookies.get('token')?.value || '' 
@@ -18,6 +18,7 @@ export async function proxy(request) {
 // middleware runs on the following pages
 export const config = {
   matcher: [
+    '/',
     '/profile/:id', //catch all for all user IDs
     '/profile',
     '/game',

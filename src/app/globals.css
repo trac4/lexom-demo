@@ -1,6 +1,7 @@
 :root {
     --primary: rgb(109, 196, 242);
-    --secondary: rgb(240, 248, 255)
+    --secondary: rgb(240, 248, 255);
+    --tertiary: rgb(77, 167, 216);
 }
 
 body {
@@ -31,15 +32,18 @@ a {
     text-decoration: none;
 }
 
-/* GREETING FOR USER */
+/* LANDING PAGE */
 .home-greeting {
     align-self: center;
     margin: 0 150px;
+    justify-self: center;
+    box-sizing: border-box;
+    width: 280px;
 }
 
-.home-greeting h2 {
+.home-greeting h3, .home-greeting h3 > a {
     text-align: center;
-    font-size: 32px;
+    font-size: 26px;
 }
 
 .home-greeting p, .home-greeting a {
@@ -47,8 +51,16 @@ a {
     font-size: 20px;
 }
 
-.home-greeting a:hover {
+.home-greeting a {
     color: var(--primary)
+}
+
+.home-greeting ul>li {
+    font-size: 20px;
+}
+
+.home-greeting ul {
+    padding-left: 20px;
 }
 
 /* ////////// */
@@ -117,7 +129,7 @@ a {
 }
 
 .submission button:active {
-    background: rgb(84, 139, 168)
+    background: var(--tertiary)
 }
 
 .submission input {
@@ -160,13 +172,23 @@ a {
 
 .auth{
   margin-top: 4rem;
-  border: 3px green solid;
+  border: 3px var(--primary) solid;
+  border-radius: 44px;
   align-self: center;
   display: flex;
   flex-direction: column;
   margin: 4rem 200px;
   padding: 1rem;
   gap: 10px;
+  box-sizing: border-box;
+  width:280px;
+  justify-self: center;
+}
+
+@media (min-width: 600px) {
+    .auth{
+        width:500px
+    }
 }
 
 /* centering the button inside the form */
@@ -178,37 +200,77 @@ a {
   text-align: center;
 }
 
+.auth button {
+    width: 90px;
+    padding: 5px 0;
+    border-width: 3px;
+    border-radius: 4px;
+    border-color: var(--secondary);
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-weight: bolder;
+    border-style: double;
+}
+.auth button:hover {
+    background-color: var(--tertiary);
+    cursor: pointer;
+}
+
+.auth button:disabled {
+    background-color: rgba(109, 195, 242, 0.459);
+    cursor: not-allowed;
+}
+
 .improper-auth {
     color:crimson;
     font-size: 12px;
     font-weight: bold;
 }
 
+
 /* ///////////// */
 /* LEADERBOARDS */
 /* ///////////// */
 
 #leaderboard {
-  align-self: center;
+  justify-self: center;
+  box-sizing: border-box;
+  width: 280px
 }
-#leaderboard h1{
+
+@media (min-width: 600px) {
+    #leaderboard {
+        width:500px
+    }
+}
+
+#leaderboard h2{
   text-align: center;
+}
+
+#leaderboard p{
+    text-align: center;
+}
+
+/* Targets link directly inside the p tag in the event the user is not logged in */
+#leaderboard p > a {
+    text-decoration: none;
+    color:var(--tertiary)
 }
 
 #leaderboard table {
     text-align: center;
     margin: 0 auto;
-    border: black 1px solid;
+    border: none;
     border-collapse: collapse;
     
 }
 
 th, td {
   padding: 0rem;
-  border:black 1px solid;
+  border:none;
   border-collapse: collapse;
   box-sizing: border-box;
-  width: 11rem;
   text-align: center;
   vertical-align:middle;
   
@@ -216,15 +278,87 @@ th, td {
 
 th {
   background-color:var(--primary);
-  padding: 0;
+  padding: 2px;
 }
 
 td{
-  height:25px;
+  height:20px;
   font-size: .75rem;
+  background-color: rgba(111, 157, 167, 0.296);
+}
+
+.rank-col {
+    width: 4rem;
+}
+.score-col {
+    width: 4rem;
+}
+.player-col {
+    width: 8rem;
+}
+
+@media (min-width: 600px) {
+    .rank-col, .score-col {
+        width:8rem
+    }
 }
 
 .current-user td {
-    color: var(--primary);
+    color: var(--tertiary);
     font-weight: bold;
+}
+
+/* /////////////////// */
+/* USER'S PROFILE PAGE */
+/* /////////////////// */
+
+#user-profile {
+    box-sizing: border-box;
+    width: 280px;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#user-profile h2 {
+    color: var(--primary);
+}
+
+#user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+.user-detail {
+    width: 240px;
+    text-align: center;
+}
+
+.user-detail b, .user-detail p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.user-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.user-buttons button {
+    width: 90px;
+    padding: 5px 0;
+    border: none;
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-weight: bolder;
+    border-style: double;
+}
+
+.user-buttons button:hover {
+    background-color: var(--tertiary);
+    cursor: pointer;
 }

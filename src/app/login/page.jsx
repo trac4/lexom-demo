@@ -38,7 +38,7 @@ export default function SignUpPage () {
       setLoading(true)
       const res = await axios.post('/api/users/login', user)
       console.log('success:', res.data)
-      router.push('/')
+      router.push('/profile')
     } catch (error) {
       console.log(error.message)
       //regEx attempt

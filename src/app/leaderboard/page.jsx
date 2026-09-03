@@ -1,64 +1,53 @@
 'use client'
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
+import Link from 'next/link';
 
 export default function LeaderboardPage() {
-  const dummyData = [
-    { name: "test", score: 100000 },
-    { name: "test2", score: 100 },
-  ];
-
-  const dummyboard = dummyData.map((data, idx) => (
-    <tr key={data.name}>
-      <td>{idx + 1}</td>
-      <td> {data.score}</td>
-      <td> {data.name}</td>
-    </tr>
-  ));
 
   const [userInfo, setUserInfo] = useState("");
-  const [apiData, setApiData] = useState([]);
+  const [leaderboardData, setLeaderboardData] = useState([]);
   const [rank, setRank] = useState(null) //is to be set with the rank of the user
 
   useEffect(() => {
     async function getLeaderboard() {
       const { data: { user_id, leaderboard } } = await axios.get("/api/game/leaderboard");
       setUserInfo(user_id);
-      setApiData(leaderboard);
+      setLeaderboardData(leaderboard);
     }
     getLeaderboard();
   }, []);
 
-  console.log(apiData, userInfo);
+  console.log(leaderboardData, userInfo);
 
   let message
   if (userInfo === null) {
-    message = 'Log in to play to submit a score for a chance to appear on the leaderboard!'
+    message = <p><Link href={'/login'}>Log in</Link> or <Link href={'/signup'}>register</Link> to play to submit a score for a chance to appear on the leaderboard!</p>
   } else {
-    if (Number.isInteger(rank)) message = `You ranked No. ${rank} on the leaderboard!`
-    else message = 'Play a game for a chance to appear on the leaderboard!'
+    if (Number.isInteger(rank)) message = <p>You ranked No. {rank}!</p>
+    else message = <p>Play a game for a chance to appear on the leaderboard!</p>
   }
 
   return (
     <div id="leaderboard">
-      <h1>DAILY LEADERBOARDS</h1>
-      {message !== undefined && <p>{message}</p>}
+      <h2>LEADERBOARDS</h2>
+      {message}
       <table>
         <thead id="leaderboard-header">
           <tr>
-            <th>Rank</th>
-            <th>Score</th>
-            <th>Person</th>
+            <th className='rank-col'>Rank</th>
+            <th className='score-col'>Score</th>
+            <th className='player-col'>Player</th>
           </tr>
         </thead>
         <tbody>
-          {apiData.map((data, idx) => {
+          {leaderboardData.map((data, idx) => {
             if (userInfo === data.submitted_userId._id) setRank(idx + 1);
             return (
               <tr className={userInfo === data.submitted_userId._id ? "current-user" : ""} key={Math.random()}>
-                <td>{idx + 1}</td>
-                <td> {data.score}</td>
-                <td> {data.submitted_userId.username}</td>
+                <td className='rank-col'>{idx + 1}</td>
+                <td className='score-col'> {data.score.toFixed(2)}</td>
+                <td className='player-col'> {data.submitted_userId.username}</td>
               </tr>
             );
           })}

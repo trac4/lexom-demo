@@ -4,28 +4,24 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="home-greeting">
+
       <section>
-        <h2>Welcome</h2>
-        <p>
-          This is <b>Lexom,</b> a game that tests your ability to come up with
-          words. Got a word you can think of that is obscure, lengthy,
-          multisyllabic, or even all of the above? Well then, this game might
-          just be for you!
-        </p>
+        <h3> <Link href={'/login'}>Login</Link> or <Link href={'/login'}>Sign up</Link> in order to...</h3>
+        <ul>
+          <li>Put your verncular to the test</li>
+          <li>Compete against other players</li>
+          <li>Climb the leaderboards</li>
+        </ul>  
       </section>
       <section>
-        <h2>How to Play</h2>
+        <h3>How to Play</h3>
         <p>
-          When playing, you will be asked to come up with a word that meets some
-          certain criteria, such as a minimum length requirement, a required
-          part of speech (i.e. a noun, adjective, etc.), ending or beginning
-          with some specific letter(s), and more.
+          The objective is basic, you will be asked to come up with and type word that meets some
+          certain criteria within a time limit. Such conditions include a length requirement, a word beginning with specific letter(s), and more.
         </p>
         <p>
-          From there, if the word is valid, you will receive a score. The longer, more polysyllabic, or
-          rarer the word is, the higher your score will be.
+          From there, if the word is valid, you will receive a score, determined by word length, syllable count, and frequency. To score more, try to think of a word that uses uncommon letters or is uncommon in everyday use and sesquipedalian&mdash;in other words, a long polysyllabic word. 
         </p>
-        <Link href="/game">Ready to play?</Link>
       </section>
     </div>
   );
