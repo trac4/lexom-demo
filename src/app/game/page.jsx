@@ -11,7 +11,7 @@ import SubmitScoreButton from '../Components/SubmitScoreButton';
 
 export default function GamePage() {
 
-    const timeLimit = 8
+    const timeLimit = 12
     const [time, setTime] = useState(timeLimit);
     const [score, setScore] = useState(0);
     const [answer, setAnswer] = useState(null);

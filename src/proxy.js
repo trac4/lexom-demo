@@ -19,7 +19,6 @@ export async function proxy(request) {
 export const config = {
   matcher: [
     '/',
-    '/profile/:id', //catch all for all user IDs
     '/profile',
     '/game',
     '/login',

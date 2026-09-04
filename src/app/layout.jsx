@@ -1,32 +1,26 @@
 import Link from "next/link";
-import './globals.css'
+import "./globals.css";
 
-export default function RootLayout({children}) {
-  
+export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-    >
+    <html lang="en">
       <body>
-        
-      
-    <div className="main-layout">
-      <header>
-        <h1 id="Logo"><Link href= '/'>Lexom</Link></h1>
-        <nav>
-          <Link href="/game">Play Game</Link>
-          <Link href="/leaderboard">Leaderboard</Link>
-          <Link href="/profile">Profile</Link>
-        </nav>
-      </header>
-    
-    <main>
-      {children}
-    </main>
-    </div>
-    </body>
+        <div className="main-layout">
+          <header>
+            <div>
+              <h1 id="Logo">
+                <Link href="/">Lexom</Link>
+              </h1>
+              <nav>
+                <Link href="/leaderboard">Leaderboard</Link>
+                <Link href="/profile">Profile</Link>
+              </nav>
+            </div>
+          </header>
+
+          <main>{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
-
-

@@ -32,6 +32,7 @@ export default function LeaderboardPage() {
     <div id="leaderboard">
       <h2>LEADERBOARDS</h2>
       {message}
+      {rank !== null && <p><Link href={'/game'}>Play again</Link> to improve your score</p>}
       <table>
         <thead id="leaderboard-header">
           <tr>

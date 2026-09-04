@@ -2,6 +2,8 @@
     --primary: rgb(109, 196, 242);
     --secondary: rgb(240, 248, 255);
     --tertiary: rgb(77, 167, 216);
+    ---homepage-section-height: 430px;
+    ---section-gap: 50px;
 }
 
 body {
@@ -17,11 +19,20 @@ header {
     background-color: var(--primary);
 }
 
+/* generic div is where the logo and links lie */
+header > div {
+    width:95%;
+    display: flex;
+    justify-items: center;
+}
+
 #Logo {
     font-family: 'Lucida Handwriting', Helvetica, sans-serif;
     margin: 0;
+    margin-right: auto;
     font-size: 40px;
     color: black;
+    user-select: none;
 }
 
 #Logo a{
@@ -32,6 +43,21 @@ a {
     text-decoration: none;
 }
 
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: right;
+}
+
+nav > a {
+    color: black;
+}
+
+nav > a:active{
+    color: red;
+}
+
 /* LANDING PAGE */
 .home-greeting {
     align-self: center;
@@ -39,6 +65,70 @@ a {
     justify-self: center;
     box-sizing: border-box;
     width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 500px) {
+    .home-greeting {
+
+    width: 400px;
+
+}
+}
+
+@media (min-width: 600px) {
+    .home-greeting {
+
+    width: 500px;
+
+}
+}
+
+@media (min-width: 900px) and (max-width: 1500px) {
+.home-greeting {
+    flex-direction: row;
+    gap: var(---section-gap);
+    width:850px;
+    height:var(---homepage-section-height);
+    }
+
+#encourage-side {
+    box-sizing: border-box;
+    width: 275px;
+    display: flex;
+}
+
+
+
+#encourage-side > .home-content {
+    align-self: center;
+    justify-self: center;
+}
+
+#how-to-play-side {
+    box-sizing: border-box;
+    width: 525px;
+    position: relative;
+}
+
+#encourage-side h3{
+    text-align: right;
+}
+#how-to-play-side::before{
+    content: '';
+    background: var(--primary);
+    height:calc(var(---homepage-section-height) - 5px );
+    width:1.5px;
+    position: absolute;
+    /* result of perfect offset eq: offset = (-gapwidth /2) - (divider width / 2) */
+    left: calc( (-1 * var(---section-gap) / 2) - (1.5px/2) ); 
+    bottom: 0px;
+}
+
+#how-to-play-side > .home-content {
+    height: max-content;
+}
 }
 
 .home-greeting h3, .home-greeting h3 > a {
@@ -46,17 +136,13 @@ a {
     font-size: 26px;
 }
 
-.home-greeting p, .home-greeting a {
+.home-greeting p, .home-greeting ul > li {
     color: black;
-    font-size: 20px;
+    font-size: 19.6px;
 }
 
 .home-greeting a {
     color: var(--primary)
-}
-
-.home-greeting ul>li {
-    font-size: 20px;
 }
 
 .home-greeting ul {
@@ -103,7 +189,7 @@ a {
 
 .game-question {
     margin: 0 auto;
-    width: 400px;
+    width: 300px;
 }
 
 .game-question h2 {
@@ -244,6 +330,12 @@ a {
     }
 }
 
+@media (min-width: 900px) {
+    #leaderboard {
+        width:700px
+    }
+}
+
 #leaderboard h2{
   text-align: center;
 }
@@ -261,7 +353,7 @@ a {
 #leaderboard table {
     text-align: center;
     margin: 0 auto;
-    border: none;
+    border: 1px var(--primary) solid;
     border-collapse: collapse;
     
 }
@@ -284,7 +376,7 @@ th {
 td{
   height:20px;
   font-size: .75rem;
-  background-color: rgba(111, 157, 167, 0.296);
+  background-color: rgba(109, 195, 242, 0.206);
 }
 
 .rank-col {
@@ -299,7 +391,13 @@ td{
 
 @media (min-width: 600px) {
     .rank-col, .score-col {
-        width:8rem
+        width:8rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .rank-col, .score-col, .player-col {
+        width:12rem;
     }
 }
 
@@ -361,4 +459,32 @@ td{
 .user-buttons button:hover {
     background-color: var(--tertiary);
     cursor: pointer;
+}
+/* ////////////////*/
+/* LOADING BLINKER */
+/* /////////////// */
+
+.loading-text {
+    font-size: 18px;
+    color: var(--primary);
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+/* CSS Smooth Blink Animation */
+.blink-smooth {
+    animation: blink_smooth 1.5s infinite;
+}
+
+@keyframes blink_smooth {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

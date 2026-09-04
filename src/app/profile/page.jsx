@@ -18,7 +18,7 @@ export default function ProfilePage() {
     
     const logout = async() => {
         const res = await axios.get('/api/users/logout')
-        router.push('/login')
+        router.push('/')
         
     }
 
